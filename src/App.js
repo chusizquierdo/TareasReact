@@ -12,17 +12,23 @@ class App extends Component {
     this.state = {
       todos
     };
-    this.handleAddTodo= this.handleAddTodo.bind(this);
+    this.handleAddTodo = this.handleAddTodo.bind(this);
   }
 
 
-  handleAddTodo(todo){
+  handleAddTodo(todo) {
     this.setState({
       todos: [...this.state.todos, todo]
     })
   }
-  removeTodo(index){
-    console.log(index)
+  removeTodo(index) {
+    if (window.confirm('Estas seguro de querer eliminarlo?')) {
+      this.setState({
+        todos: this.state.todos.filter((e, i) => {
+          return i !== index
+        })
+      })
+    }
   }
 
   render() {
@@ -47,8 +53,8 @@ class App extends Component {
               <button
                 className="btn btn-danger"
                 onClick={this.removeTodo.bind(this, i)}
-                >
-                  Borrar
+              >
+                Borrar
                 </button>
             </div>
           </div>
@@ -64,7 +70,7 @@ class App extends Component {
 
         <div className="container">
           <div className="row mt-4">
-            <TodoForm onAddTodo={this.handleAddTodo}/>
+            <TodoForm onAddTodo={this.handleAddTodo} />
           </div>
         </div>
 
